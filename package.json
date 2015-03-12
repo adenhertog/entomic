@@ -1,5 +1,5 @@
 {
-  "name": "gulp-entomic",
+  "name": "entomic",
   "version": "0.0.1",
   "author": "Andrew den Hertog",
   "description": "A web templating engine that produces standard HTML from customized semantic markup",
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/adenhertog/mimosa-entomic"
+    "url": "https://github.com/adenhertog/entomic/"
   },
   "keywords": [
     "entomic",
