@@ -1,0 +1,23 @@
+﻿{
+	"name": "entomic-contact-details",
+	"version": "0.0.1",
+	"description": "basic html only test",
+
+	"entomic": {
+
+		"components": [
+			{
+				"name": "contact-details",
+				"model": 
+				{
+					"phone": {
+						"type": "text",
+						"max-length": 100,
+						"required": false,
+						"description": "a phone number to display"
+					}
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,41 @@
+{
+  "name": "gulp-entomic",
+  "version": "0.0.1",
+  "author": "Andrew den Hertog",
+  "description": "A web templating engine that produces standard HTML from customized semantic markup",
+  "contributors": [
+    {
+      "name": "Andrew den Hertog",
+      "email": "andrew@entomic.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adenhertog/mimosa-entomic"
+  },
+  "keywords": [
+    "entomic",
+    "gulp",
+    "plugin",
+    "template"
+  ],
+  "license": "MIT",
+  "main": "./src",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "devDependencies": {
+    "cheerio": "^0.18.0",
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-coffee": "^2.3.1",
+    "gulp-jasmine": "^2.0.0",
+    "gulp-util": "^3.0.4",
+    "handlebars": "^3.0.0",
+    "jasmine-core": "^2.2.0",
+    "jasmine-node": "^1.14.5",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.5",
+    "lodash": "^3.5.0"
+  }
+}

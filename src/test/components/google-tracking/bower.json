@@ -1,0 +1,24 @@
+﻿{
+	"name": "entomic-google-tracking",
+	"version": "0.0.1",
+	"description": "a javascript only library",
+
+	"entomic": {
+		"scripts": ["script.js"],
+		"components": [
+			{
+				"name": "google-tracking",
+				"model": 
+				{
+					"tracking-code": {
+						"type": "text",
+						"minLength": 10,
+						"maxLength": 10,
+						"description": "code provided by google analytics"
+					},
+					"required": ["tracking-code"]
+				}
+			}
+		]
+	}
+}
