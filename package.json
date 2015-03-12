@@ -1,6 +1,6 @@
 {
   "name": "entomic",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Andrew den Hertog",
   "description": "A web templating engine that produces standard HTML from customized semantic markup",
   "contributors": [
@@ -18,7 +18,7 @@
     "template"
   ],
   "license": "MIT",
-  "main": "./src",
+  "main": "./dist/Entomic.js",
   "engines": {
     "node": ">=0.10"
   },
