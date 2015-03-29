@@ -8,8 +8,7 @@ Manifest = require "./manifest"
 # Parser
 # Responsible for converting an HTML snippet into a JSON data structure
 class Parser
-	constructor: -> 
-		@manifest = new Manifest()
+	constructor: (@manifest) -> 
 
 		@parseNode = (spec, query) -> 
 			model = {}

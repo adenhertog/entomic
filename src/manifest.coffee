@@ -2,13 +2,17 @@
 path = require "path"
 $ = require "cheerio"
 
-configuration = require "./config"
-
 class Manifest
 
-	constructor: ->
+	constructor: (@options) ->
 		@loadJson = (path) ->
-			text = fs.readFileSync path, "utf8"
+			text = ""
+			try
+				text = fs.readFileSync path, "utf8"
+			catch e
+				if e.code is "ENOENT" then return null #return null if (bower) file not exists
+				else throw e
+
 			json = JSON.parse text.toString('utf8').replace(/^\uFEFF/, '')
 			return json
 
@@ -28,20 +32,22 @@ class Manifest
 			return dirs
 
 		@loadComponentManifest = (component) -> 
-			return @loadJson path.join(configuration.componentPath, component, "bower.json")
+			return @loadJson path.join(@options.componentPath, component, "bower.json")
 
 		@loadComponentsFrom = (componentName) -> 
-			manifestDir = path.join configuration.componentPath, componentName
+			manifestDir = path.join @options.componentPath, componentName
 			manifest = @loadComponentManifest componentName
+			return unless manifest?
+
 			for c in manifest.entomic.components
-				c.dir = path.join configuration.componentPath, componentName
+				c.dir = path.join @options.componentPath, componentName
 				c.styles = manifest.entomic.styles || []
 				c.scripts = manifest.entomic.scripts || []
 				@components.push c 
 
 		@loadComponents = ->
 			@components = []
-			@loadComponentsFrom dir for dir in @getDirs configuration.componentPath
+			@loadComponentsFrom dir for dir in @getDirs @options.componentPath
 
 		@loadComponents()
 

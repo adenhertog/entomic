@@ -1,12 +1,14 @@
-﻿Parser = require "../parser"
-configuration = require "../config"
+﻿Manifest = require "../manifest"
+Parser = require "../parser"
 
 describe "parser", -> 
 	parser = null
 
 	beforeEach -> 
-		configuration.componentPath = "dist\\test\\components"
-		parser = new Parser()
+		opts = 
+			componentPath: "dist\\test\\components"
+		manifest = new Manifest(opts)
+		parser = new Parser(manifest)
 
 	describe "when parsing a basic html with registered component", -> 
 		it "should return the model for that component", -> 

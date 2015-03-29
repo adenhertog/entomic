@@ -11,8 +11,8 @@ _ = require("lodash");
 Manifest = require("./manifest");
 
 Parser = (function() {
-  function Parser() {
-    this.manifest = new Manifest();
+  function Parser(manifest) {
+    this.manifest = manifest;
     this.parseNode = function(spec, query) {
       var element, key, model, prop;
       model = {};

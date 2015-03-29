@@ -8,9 +8,15 @@ Parser = require "./parser"
 _ = require "lodash"
 
 class Entomic
-	constructor: ->
-		@manifest = new Manifest()
-		@parser = new Parser()
+	constructor: (options) ->
+		@setDefaults = -> 
+			@options = @options || {}
+			@options.componentPath = @options.componentPath || "./node_modules"
+
+		@setDefaults()
+
+		@manifest = new Manifest(options)
+		@parser = new Parser(@manifest)
 
 		@getTemplate = (component) -> 
 			templatePath = @manifest.templatePath component

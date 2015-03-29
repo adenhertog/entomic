@@ -1,4 +1,4 @@
-var $, Manifest, configuration, fs, path;
+var $, Manifest, fs, path;
 
 fs = require("fs");
 
@@ -6,13 +6,22 @@ path = require("path");
 
 $ = require("cheerio");
 
-configuration = require("./config");
-
 Manifest = (function() {
-  function Manifest() {
+  function Manifest(options) {
+    this.options = options;
     this.loadJson = function(path) {
-      var json, text;
-      text = fs.readFileSync(path, "utf8");
+      var e, json, text;
+      text = "";
+      try {
+        text = fs.readFileSync(path, "utf8");
+      } catch (_error) {
+        e = _error;
+        if (e.code === "ENOENT") {
+          return null;
+        } else {
+          throw e;
+        }
+      }
       json = JSON.parse(text.toString('utf8').replace(/^\uFEFF/, ''));
       return json;
     };
@@ -43,17 +52,20 @@ Manifest = (function() {
       return dirs;
     };
     this.loadComponentManifest = function(component) {
-      return this.loadJson(path.join(configuration.componentPath, component, "bower.json"));
+      return this.loadJson(path.join(this.options.componentPath, component, "bower.json"));
     };
     this.loadComponentsFrom = function(componentName) {
       var c, i, len, manifest, manifestDir, ref, results;
-      manifestDir = path.join(configuration.componentPath, componentName);
+      manifestDir = path.join(this.options.componentPath, componentName);
       manifest = this.loadComponentManifest(componentName);
+      if (manifest == null) {
+        return;
+      }
       ref = manifest.entomic.components;
       results = [];
       for (i = 0, len = ref.length; i < len; i++) {
         c = ref[i];
-        c.dir = path.join(configuration.componentPath, componentName);
+        c.dir = path.join(this.options.componentPath, componentName);
         c.styles = manifest.entomic.styles || [];
         c.scripts = manifest.entomic.scripts || [];
         results.push(this.components.push(c));
@@ -63,7 +75,7 @@ Manifest = (function() {
     this.loadComponents = function() {
       var dir, i, len, ref, results;
       this.components = [];
-      ref = this.getDirs(configuration.componentPath);
+      ref = this.getDirs(this.options.componentPath);
       results = [];
       for (i = 0, len = ref.length; i < len; i++) {
         dir = ref[i];

@@ -1,11 +1,10 @@
 ﻿Entomic = require "../../../Entomic"
-configuration = require "../../../config"
 fs = require "fs"
 
 describe "contact-details", -> 
 
-	configuration.componentPath = "dist\\test\\components"
-	engine = new Entomic()
+	options = { componentPath: "dist\\test\\components" }
+	engine = new Entomic(options)
 
 	fixture = fs.readFileSync __dirname + "/fixture.html", "utf8"
 	expected = fs.readFileSync __dirname + "/expected.html", "utf8"

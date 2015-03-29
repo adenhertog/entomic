@@ -15,9 +15,14 @@ Parser = require("./parser");
 _ = require("lodash");
 
 Entomic = (function() {
-  function Entomic() {
-    this.manifest = new Manifest();
-    this.parser = new Parser();
+  function Entomic(options) {
+    this.setDefaults = function() {
+      this.options = this.options || {};
+      return this.options.componentPath = this.options.componentPath || "./node_modules";
+    };
+    this.setDefaults();
+    this.manifest = new Manifest(options);
+    this.parser = new Parser(this.manifest);
     this.getTemplate = function(component) {
       var template, templatePath;
       templatePath = this.manifest.templatePath(component);

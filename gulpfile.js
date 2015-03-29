@@ -2,6 +2,7 @@ var gulp = require("gulp");
 var gutil = require("gulp-util");
 var coffee = require('gulp-coffee');
 var jasmine = require('gulp-jasmine');
+var plumber = require('gulp-plumber');
 var del = require("del");
 
 const DIST = "./dist/";
@@ -32,11 +33,13 @@ gulp.task("content", function () {
 
 gulp.task('scripts', function () {
 	return gulp.src('./src/**/*.coffee')
-		.pipe(coffee({ bare: true }).on('error', gutil.log))
+		.pipe(plumber())
+		.pipe(coffee({ bare: true }))
 		.pipe(gulp.dest(DIST))
 });
 
 gulp.task("test", ["scripts", "content"], function () {
 	return gulp.src('./dist/**/*.spec.js')
-		.pipe(jasmine({ verbose: true }));
+		.pipe(plumber())
+		.pipe(jasmine({ verbose: true, includeStackTrace: true }));
 });
