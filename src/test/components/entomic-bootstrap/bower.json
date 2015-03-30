@@ -1,41 +1,55 @@
 ﻿{
-	"name": "entomic-bootstrap",
-	"version": "0.0.1",
-	"description": "an html template that depends on bootstrap",
+    "name": "entomic-bootstrap",
+    "version": "0.0.1",
+    "description": "an html template that depends on bootstrap",
 
-	"dependencies": {
-		"bootstrap": "~3.3.2"
-	},
+    "dependencies": {
+        "bootstrap": "~3.3.2",
+        "bootstrap-ui": "~3.3.2"
+    },
 
-	"entomic": {
+    "entomic": {
 
-		"styles": ["bootstrap.css"],
+        "styles": [ "entomic-bootstrap.css" ],
 
-		"components": [
-			{
-				"name": "bootstrap-titlebar",
-				"template": "titlebar/template.html",
-				"model": 
-				{
-					"title": {
-						"type": "text",
-						"description": "title to insert"
-					},
-					"required": ["title"]
-				}
-			},
-			{
-				"name": "bootstrap-navigation",
-				"template": "navigation/template.html",
-				"model": 
-				{
-					"link": {
-						"type": "text",
-						"description": "link to insert"
-					},
-					"required": ["link"]
-				}
-			}
-		]
-	}
+        "dependencies": [
+            {
+                "name": "bootstrap",
+                "styles": [ "bootstrap.css" ],
+                "scripts": [ "bootstrap.js" ]
+            }
+        ],
+
+        "components": [
+            {
+                "name": "bootstrap-titlebar",
+                "template": "titlebar/template.html",
+                "model": {
+                    "title": {
+                        "type": "text",
+                        "description": "title to insert"
+                    },
+                    "required": [ "title" ]
+                },
+                "dependencies": [
+                    {
+                        "name": "bootstrap-ui",
+                        "styles": [ "bootstrap-ui.css" ],
+                        "scripts": [ "bootstrap-ui.js" ]
+                    }
+                ]
+            },
+            {
+                "name": "bootstrap-navigation",
+                "template": "navigation/template.html",
+                "model": {
+                    "link": {
+                        "type": "text",
+                        "description": "link to insert"
+                    },
+                    "required": [ "link" ]
+                }
+            }
+        ]
+    }
 }

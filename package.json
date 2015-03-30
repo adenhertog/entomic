@@ -1,6 +1,6 @@
 {
   "name": "entomic",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "author": "Andrew den Hertog",
   "description": "A web templating engine that produces standard HTML from customized semantic markup",
   "contributors": [
@@ -29,7 +29,8 @@
     "gulp-jasmine": "^2.0.0",
     "gulp-util": "^3.0.4",
     "handlebars": "^3.0.0",
-    "lodash": "^3.5.0"
+    "lodash": "^3.5.0",
+    "string-hash": "^1.1.0"
   },
   "devDependencies": {
     "gulp-plumber": "^1.0.0",

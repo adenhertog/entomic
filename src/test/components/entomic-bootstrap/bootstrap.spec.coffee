@@ -16,4 +16,13 @@ describe "bootstrap", ->
 			expect(result.html).toEqual expected
 
 		it "should include the bootstrap css file in the result", -> 
-			expect(result.styles).toEqual ["dist\\test\\components\\entomic-bootstrap\\bootstrap.css"]
+			expect(result.styles).toContain { library: "entomic-bootstrap", path: "entomic-bootstrap.css", key: 11596168 }
+
+		it "should include dependant component styles", -> 
+			expect(result.styles).toContain { library: "bootstrap-ui", path: "bootstrap-ui.css", key: 1902095368 }
+
+		it "should contain library scripts", -> 
+			expect(result.scripts).toContain { library: "bootstrap-ui", path: "bootstrap-ui.js", key: 593737682 }
+
+		it "should contain library dependency scripts", -> 
+			expect(result.scripts).toContain { library: 'bootstrap', path: 'bootstrap.js', key: 635438866 }

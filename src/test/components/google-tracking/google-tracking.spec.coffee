@@ -16,4 +16,4 @@ describe "google-tracking", ->
 			expect(result.html).toEqual expected
 
 		it "should include the script", -> 
-			expect(result.scripts).toEqual ["dist\\test\\components\\google-tracking\\script.js"]
+			expect(result.scripts).toContain { library: "entomic-google-tracking", path: "script.js", key: 1104760460 }

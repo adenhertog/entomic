@@ -1,6 +1,7 @@
 ﻿fs = require "fs"
 path = require "path"
 $ = require "cheerio"
+hash = require "string-hash"
 
 class Manifest
 
@@ -25,7 +26,7 @@ class Manifest
 
 			for file in files
 				if file[0] != '.'
-					filePath = "#{rootDir}#{path.sep}#{file}"
+					filePath = path.join rootDir, file
 					stat = fs.statSync filePath
 					dirs.push file if stat.isDirectory()
 
@@ -41,8 +42,7 @@ class Manifest
 
 			for c in manifest.entomic.components
 				c.dir = path.join @options.componentPath, componentName
-				c.styles = manifest.entomic.styles || []
-				c.scripts = manifest.entomic.scripts || []
+				c.manifest = manifest
 				@components.push c 
 
 		@loadComponents = ->
@@ -51,11 +51,40 @@ class Manifest
 
 		@loadComponents()
 
-	getStylePaths: (component) -> 
-		return (path.join component.dir, style for style in component.styles)
+		#resource = styles|scripts|assets
+		@getResourcePaths = (component, resource) -> 
+			result = []
 
-	getScriptPaths: (component) -> 
-		return (path.join component.dir, script for script in component.scripts)
+			if component[resource]? 
+				result.push { library: component.manifest.name, component: component.name, path: resourcePath } for resourcePath in component[resource]
+
+			# library-level resources
+			if component.manifest.entomic[resource]? 
+				result.push { library: component.manifest.name, path: resourcePath } for resourcePath in component.manifest.entomic[resource]
+
+			# library-level dependency resources
+			if component.manifest.entomic.dependencies?
+				for dependency in component.manifest.entomic.dependencies
+					if dependency[resource]?
+						for resourcePath in dependency[resource]
+							result.push {library: dependency.name, path: resourcePath }
+
+			# component-level dependency resources
+			if component.dependencies?
+				for dependency in component.dependencies
+					if dependency[resource]?
+						result.push { library: dependency.name, path: resourcePath } for resourcePath in dependency[resource]
+
+			for resource in result
+				resource.key = hash "#{resource.library}#{resource.component || ''}#{resource.path}"
+		
+			return result
+
+	getStylePaths: (component) -> @getResourcePaths component, "styles"
+
+	getScriptPaths: (component) -> @getResourcePaths component, "scripts"
+
+	getAssetPaths: (component) -> @getResourcePaths component, "assets"
 
 	templatePath: (component) -> 
 		templatePath = ""

@@ -43,8 +43,9 @@ class Entomic
 			continue unless componentQuery.length
 
 			#add any component scripts/styles to the result
-			result.styles.push style for style in @manifest.getStylePaths component when result.styles.indexOf(style) < 0
-			result.scripts.push script for script in @manifest.getScriptPaths component when result.scripts.indexOf(script) < 0
+			result.styles.push style for style in @manifest.getStylePaths component
+			result.scripts.push script for script in @manifest.getScriptPaths component
+			result.scripts.push asset for asset in @manifest.getAssetPaths component
 
 			#transform the html for the matched component
 			templateHtml = @getTemplate component
@@ -55,6 +56,10 @@ class Entomic
 				model = @transformSnippet snippet, component
 				render = template model
 				$(snippet).replaceWith render
+
+		result.styles = _.uniq result.styles, 'key'
+		result.scripts = _.uniq result.scripts, 'key'
+		result.assets = _.uniq result.assets, 'key'
 
 		result.html = $.html()
 		return result
