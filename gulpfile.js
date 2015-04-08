@@ -3,6 +3,7 @@ var gutil = require("gulp-util");
 var coffee = require('gulp-coffee');
 var jasmine = require('gulp-jasmine');
 var plumber = require('gulp-plumber');
+var insertLines = require('gulp-insert-lines');
 var del = require("del");
 
 const DIST = "./dist/";
@@ -38,7 +39,16 @@ gulp.task('scripts', function () {
 		.pipe(gulp.dest(DIST))
 });
 
-gulp.task("test", ["scripts", "content"], function () {
+gulp.task('executable', ['scripts'], function () {
+	return gulp.src('./dist/index.js')
+		.pipe(insertLines({
+			'before': /var AdmZip.*$/i,
+			'lineBefore': '#!/usr/bin/env node'
+		}))
+		.pipe(gulp.dest('./dist'));
+});
+
+gulp.task("test", ["executable", "content"], function () {
 	return gulp.src('./dist/**/*.spec.js')
 		.pipe(plumber())
 		.pipe(jasmine({ verbose: true, includeStackTrace: true }));

@@ -19,4 +19,4 @@ fs.writeFileSync("output.html", rendered.html);
 Folder path where entomic components are located.
 
 Type: `String`  
-Default: `node_modules`  
+Default: `components`  
