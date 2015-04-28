@@ -54,7 +54,7 @@ Manifest = (function() {
       return dirs;
     };
     this.loadComponentManifest = function(component) {
-      return this.loadJson(path.join(this.options.componentPath, component, "packages.json"));
+      return this.loadJson(path.join(this.options.componentPath, component, "package.json"));
     };
     this.loadComponentsFrom = function(componentName) {
       var c, i, len, manifest, ref, results;

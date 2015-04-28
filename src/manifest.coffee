@@ -33,7 +33,7 @@ class Manifest
 			return dirs
 
 		@loadComponentManifest = (component) -> 
-			return @loadJson path.join(@options.componentPath, component, "packages.json")
+			return @loadJson path.join(@options.componentPath, component, "package.json")
 
 		@loadComponentsFrom = (componentName) -> 
 			manifest = @loadComponentManifest componentName

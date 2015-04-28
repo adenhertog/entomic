@@ -10,7 +10,7 @@ finished = false
 
 publish = (dir) -> 
 	# get package name
-	manifestPath = path.join dir, "packages.json"
+	manifestPath = path.join dir, "package.json"
 	manifestText = fs.readFileSync manifestPath, "utf8"
 	manifestText = manifestText.substring(manifestText.indexOf('{'))
 	manifest = JSON.parse manifestText
