@@ -1,6 +1,6 @@
 {
   "name": "entomic",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "Andrew den Hertog",
   "description": "A web templating engine that produces standard HTML from customized semantic markup",
   "contributors": [

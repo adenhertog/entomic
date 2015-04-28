@@ -54,13 +54,12 @@ Manifest = (function() {
       return dirs;
     };
     this.loadComponentManifest = function(component) {
-      return this.loadJson(path.join(this.options.componentPath, component, "bower.json"));
+      return this.loadJson(path.join(this.options.componentPath, component, "packages.json"));
     };
     this.loadComponentsFrom = function(componentName) {
-      var c, i, len, manifest, manifestDir, ref, results;
-      manifestDir = path.join(this.options.componentPath, componentName);
+      var c, i, len, manifest, ref, results;
       manifest = this.loadComponentManifest(componentName);
-      if (manifest == null) {
+      if (!((manifest != null) && (manifest.entomic != null))) {
         return;
       }
       ref = manifest.entomic.components;

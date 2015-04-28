@@ -17,7 +17,7 @@ finished = false;
 
 publish = function(dir) {
   var formData, manifest, manifestPath, manifestText, name, zip, zipBuffer;
-  manifestPath = path.join(dir, "bower.json");
+  manifestPath = path.join(dir, "packages.json");
   manifestText = fs.readFileSync(manifestPath, "utf8");
   manifestText = manifestText.substring(manifestText.indexOf('{'));
   manifest = JSON.parse(manifestText);

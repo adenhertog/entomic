@@ -33,12 +33,11 @@ class Manifest
 			return dirs
 
 		@loadComponentManifest = (component) -> 
-			return @loadJson path.join(@options.componentPath, component, "bower.json")
+			return @loadJson path.join(@options.componentPath, component, "packages.json")
 
 		@loadComponentsFrom = (componentName) -> 
-			manifestDir = path.join @options.componentPath, componentName
 			manifest = @loadComponentManifest componentName
-			return unless manifest?
+			return unless manifest? and manifest.entomic?
 
 			for c in manifest.entomic.components
 				c.dir = path.join @options.componentPath, componentName
